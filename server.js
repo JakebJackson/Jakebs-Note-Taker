@@ -1,11 +1,12 @@
 // Const variables for the application
 const express = require('express');
 const path = require('path');
-const PORT = 3001;
 const app = express();
 const fs = require('fs');
 // Using the UUID package for generating unique identifiers for my notes
 const { v4: uuidv4 } = require('uuid');
+// Dotenv for dynamic port and heroku deployment
+require('dotenv').config();
 
 // Middleware
 app.use(express.json());
@@ -84,6 +85,8 @@ const getNotesFromFile = () => {
     res.sendFile(path.join(__dirname, './public/index.html'));
 });
 
+//Dynamic port assignment for Heroku
+const PORT = process.env.PORT || 3001;
 // Tells the app to run on the defined port
 app.listen(PORT, () => {
     // Logs that the server has started in console.
